@@ -19,6 +19,13 @@ export function usePaginatedTransactions(): PaginatedTransactionsResult {
       if (response === null || previousResponse === null) {
         return response
       }
+      /* 
+      * BugFix4 
+      * Here, Initially, we were sending response.data
+      * which was overridding the previous data hence we were getting only the new data
+      * I retured the appended response data with previous response data,
+      * Now it is showing all the records.
+      */
       const moreData = [...previousResponse.data, ...response.data]
       return { data: moreData, nextPage: response.nextPage }
     })

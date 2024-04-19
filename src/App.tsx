@@ -24,9 +24,21 @@ export function App() {
     transactionsByEmployeeUtils.invalidateData()
 
     await employeeUtils.fetchAll()
+    /*
+    * BugFix 5
+    * setIsLoading is setting the state variable isLoading
+    * this isLoading variable is used in InputSelect tag
+    * which is a component that is created ( src/components/InputSelect/index.tsx )
+    * untill the isLoading is true, it will show ...is loading
+    * as soon as it is set to false, it will display all the employees 
+    * which is handled on line 94 of src/components/InputSelect/index.tsx
+    * and we don't need to wait till all the transactions are loaded, as soon as we 
+    * get list of employees, it should be set to false. 
+    * hence moved the setIsLoading(false) statement 
+    * above of the await paginatedTransactionsUtils.fetchAll() statement
+    */
     setIsLoading(false)
     await paginatedTransactionsUtils.fetchAll()
-    //setIsLoading(false)
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
 
   const loadTransactionsByEmployee = useCallback(
@@ -42,6 +54,18 @@ export function App() {
       loadAllTransactions()
     }
   }, [employeeUtils.loading, employees, loadAllTransactions])
+  /*
+  * BugFix 6
+  * initially, on line 110, it was only looking at paginatedTransactionsUtils.loading. 
+  * if it's true, the view more button is disabled else enabled. 
+  * for part A) when there are no more paginatedTransactions, is should be true.
+  * so, add the condition paginatedTransactions?.nextPage == null once this condition is met,
+  * "disabled" will be set to true hence view more will be set to true. 
+  * for partB) since I am checking "paginatedTransactions?", for searchByEmployeeId, we are not getting
+  * paginatedTransactions, we are getting transactionsByEmployee hence when we select transactions by employee,
+  * disabled will automaticallly be set to true. but I have added extra check. if the 
+  * transactionsByEmployee length is zero, the disabled will be set to true. 
+  */
   const disableOptionsWhenPaginatedTransactionLoading = paginatedTransactionsUtils.loading
   const disableOptionsWhenNoMorePaginatedTransactions = paginatedTransactions?.nextPage == null
   const paginatedDisabledOptions = disableOptionsWhenPaginatedTransactionLoading || disableOptionsWhenNoMorePaginatedTransactions
@@ -67,6 +91,13 @@ export function App() {
             if (newValue === null) {
               return
             }
+            /*
+            * BugFix3
+            * when I was going back from some employee to all employees,
+            * I was getting empty ID.
+            * so if no id is provided, that means we have selected all employees
+            * and hence called loadAllTransaction() function
+            */
             else if(newValue?.id === "") {
               await loadAllTransactions()
             }

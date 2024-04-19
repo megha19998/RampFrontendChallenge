@@ -92,6 +92,13 @@ hr.RampBreak--l {
 
 .RampInputSelect--dropdown-container {
   display: none;
+  /* 
+  * BugFix 1 
+  * I initially made it absolute,
+  * but drop down list was not behaving as expected 
+  * in dynamic layout, so I removed it.
+  */
+  /*position: absolute;*/
   width: 100%;
   max-width: 700px;
   border: 1px solid var(--color-darker-shade);

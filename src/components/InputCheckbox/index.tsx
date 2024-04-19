@@ -12,9 +12,11 @@ export const InputCheckbox: InputCheckboxComponent = ({ id, checked = false, dis
           "RampInputCheckbox--label-checked": checked,
           "RampInputCheckbox--label-disabled": disabled,
         })}
-        onClick={() => {
-          onChange(!checked)
-        }}
+        /*
+        * I defined this OnClick function,
+        * so whenever it is, the checked value will be toggled 
+        */
+        onClick={() => onChange(!checked)}
       />
       <input
         id={inputId}

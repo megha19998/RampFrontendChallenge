@@ -5,6 +5,12 @@ import { TransactionPane } from "./TransactionPane"
 import { SetTransactionApprovalFunction, TransactionsComponent } from "./types"
 
 export const Transactions: TransactionsComponent = ({ transactions }) => {
+  /*
+  * BugFix 7 
+  * if we go and look at PaginatedTransactions and Transactionsbyemployee, 
+  * they are using fetchWithCache, so It is important to clear the 
+  * old state of transaction from the cache (which we are doing on line 22)
+  */
     const { fetchWithoutCache, loading, clearCacheByEndpoint } = useCustomFetch()
     
     const setTransactionApproval = useCallback<SetTransactionApprovalFunction>(

@@ -80,6 +80,8 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 **Actual:** Options dropdown stays in the same position as you scroll the page, losing the reference to the select input
 
+**Solution:** Explanation in src/index.css file on Line 95
+
 # Bug 2: Approve checkbox not working
 
 **How to reproduce:**
@@ -89,6 +91,8 @@ We don't have a real API for this challenge, so we added some utilities to simul
 **Expected:** Clicking the checkbox toggles its value
 
 **Actual:** Nothing happens
+
+**Solution:** Explanation in src/components/InputCheckbox/index.tsx on line 15
 
 # Bug 3: Cannot select _All Employees_ after selecting an employee
 
@@ -103,6 +107,8 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 **Actual:** The page crashes
 
+**Solution:** Explanation in src/App.tsx on line 70
+
 # Bug 4: Clicking on View More button not showing correct data
 
 **How to reproduce:**
@@ -113,6 +119,8 @@ We don't have a real API for this challenge, so we added some utilities to simul
 **Expected:** Initial transactions plus new transactions are shown on the page
 
 **Actual:** New transactions replace initial transactions, losing initial transactions
+
+**Solution:** Explanation in src/hooks/usePaginatedTransactions.ts on line 22
 
 # Bug 5: Employees filter not available during loading more data
 
@@ -130,6 +138,8 @@ _This bug has 2 wrong behaviors that will be fixed with the same solution_
 
 **Actual:** The filter stops showing "Loading employees.." until `paginatedTransactions` is succeeded
 
+**Solution:** Explanation in src/App.tsx on line 57
+
 ##### Part 2
 
 **How to reproduce:**
@@ -141,6 +151,8 @@ _This bug has 2 wrong behaviors that will be fixed with the same solution_
 **Expected:** The employees filter should not show "Loading employees..." after clicking **View more**, as employees are already loaded
 
 **Actual:** The employees filter shows "Loading employees..." after clicking **View more** until new transactions are loaded.
+
+**Solution:** Explanation in src/App.tsx on line 27
 
 # Bug 6: View more button not working as expected
 
@@ -158,6 +170,8 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 
 **Actual:** The **View more** button is visible even when transactions are filtered by employee. _You can even click **View more** button and get an unexpected result_
 
+**Solution:** Explanation in src/App.tsx on line 57
+
 ##### Part 2
 
 **How to reproduce:**
@@ -169,6 +183,8 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 **Expected:** When you reach the end of the data, the **View More** button disappears and you are not able to request more data.
 
 **Actual:** When you reach the end of the data, the **View More** button is still showing and you are still able to click the button. If you click it, the page crashes.
+
+**Solution:** Explanation in src/App.tsx on line 57
 
 # Bug 7: Approving a transaction won't persist the new value
 
@@ -188,6 +204,8 @@ _You need to fix some of the previous bugs in order to reproduce_
 **Expected:** In steps 6 and 8, toggled transaction kept the same value it was given in step 2 _(E.g. Social Media Ads Inc is unchecked)_
 
 **Actual:** In steps 6 and 8, toggled transaction lost the value given in step 2. _(E.g. Social Media Ads Inc is checked again)_
+
+**Solution:** Explanation in src/components/Transactions/index.tsx on line 8
 
 ## Submission
 
