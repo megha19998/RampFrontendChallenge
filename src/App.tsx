@@ -26,6 +26,7 @@ export function App() {
     await employeeUtils.fetchAll()
     setIsLoading(false)
     await paginatedTransactionsUtils.fetchAll()
+    //setIsLoading(false)
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
 
   const loadTransactionsByEmployee = useCallback(
@@ -41,6 +42,10 @@ export function App() {
       loadAllTransactions()
     }
   }, [employeeUtils.loading, employees, loadAllTransactions])
+  const disableOptionsWhenPaginatedTransactionLoading = paginatedTransactionsUtils.loading
+  const disableOptionsWhenNoMorePaginatedTransactions = paginatedTransactions?.nextPage === null
+  const diableOptionWhenTransactionByEmployee = transactionsByEmployee?.length === 0
+  const disabledOption = disableOptionsWhenPaginatedTransactionLoading || disableOptionsWhenNoMorePaginatedTransactions || diableOptionWhenTransactionByEmployee
   return (
     <Fragment>
       <main className="MainContainer">
@@ -79,7 +84,7 @@ export function App() {
           {transactions !== null && (
             <button
               className="RampButton"
-              disabled={paginatedTransactionsUtils.loading}
+              disabled={disabledOption}
               onClick={async () => {
                 await loadAllTransactions()
               }}

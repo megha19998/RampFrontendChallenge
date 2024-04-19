@@ -19,11 +19,6 @@ export function usePaginatedTransactions(): PaginatedTransactionsResult {
       if (response === null || previousResponse === null) {
         return response
       }
-      if (response.nextPage === null) {
-        // Return the previous response without modifying it
-        alert("No more transactions")
-        return previousResponse; 
-      }
       const moreData = [...previousResponse.data, ...response.data]
       return { data: moreData, nextPage: response.nextPage }
     })
