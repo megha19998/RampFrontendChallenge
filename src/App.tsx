@@ -43,9 +43,9 @@ export function App() {
     }
   }, [employeeUtils.loading, employees, loadAllTransactions])
   const disableOptionsWhenPaginatedTransactionLoading = paginatedTransactionsUtils.loading
-  const disableOptionsWhenNoMorePaginatedTransactions = paginatedTransactions?.nextPage === null
-  const diableOptionWhenTransactionByEmployee = transactionsByEmployee?.length === 0
-  const disabledOption = disableOptionsWhenPaginatedTransactionLoading || disableOptionsWhenNoMorePaginatedTransactions || diableOptionWhenTransactionByEmployee
+  const disableOptionsWhenNoMorePaginatedTransactions = paginatedTransactions?.nextPage == null
+  const paginatedDisabledOptions = disableOptionsWhenPaginatedTransactionLoading || disableOptionsWhenNoMorePaginatedTransactions
+  const transactionByEmployeeDisabledOption = transactionsByEmployee?.length === 0
   return (
     <Fragment>
       <main className="MainContainer">
@@ -84,7 +84,7 @@ export function App() {
           {transactions !== null && (
             <button
               className="RampButton"
-              disabled={disabledOption}
+              disabled={paginatedDisabledOptions || transactionByEmployeeDisabledOption}
               onClick={async () => {
                 await loadAllTransactions()
               }}
